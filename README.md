@@ -1,1 +1,1 @@
-# ShareMyThing
+# SharingHub
