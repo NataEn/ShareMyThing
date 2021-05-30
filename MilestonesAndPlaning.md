@@ -12,37 +12,51 @@ A web application where users can share things that are not in use, e.g. furnitu
 
 ## Schedule- starts on Sunday, May 30
 
-1.  MVP Planing &ndash; 4+1 days
+[A] MVP Planing - 2 hr
 
-    - list all relevant technologies and libraries &ndash; 2+1 hr
-    - specify features and entities &ndash; 4+1 hr
-    - create Mockups and site map &ndash; 6+1 hr
-    - map front-end code architecture &ndash; 6+1 hr
-    - map back-end code architecture &ndash; 6+1 hr
-    - map database modals and their relations &ndash; 1+0.5 hr\
-      --> how can agile work flow can be practiced here if any?
+- list all relevant technologies and libraries
+- specify minimal features and entities
+- create Mockups and site map
+- map minimal front-end code architecture
+- map back-end code architecture - map database modals and their relations
 
-2.  Front-end implementation, documentation and testing &ndash; 9+1 days
+[B] Front-end MVP implementation, documentation and testing - 2 days
 
-    - create json files with dummy back-end data &ndash; 1+0.5 hr
-    - construct dummy components &ndash; 4+1 hr
-    - add documentation for each component &ndash; 4+1 hr
-    - construct dummy tests for components &ndash; 4+1 hr
-    - implement components according to tests and clarify documentation accordingly &ndash; 6 days\
-      -> **add git branches names to architecture maps**
+- create json files with dummy back-end data
+- construct dummy components
+- add documentation for each component
+- construct dummy tests for components
+- implement components according to tests and clarify documentation accordingly
 
-3.  Back-end implementation, documentation and testing &ndash; 9+1 days
+[C] Back-end implementation, documentation and testing-2 days
 
-    - construct dummy routes &ndash; 1+0.5 hr
-    - add documentation for each route &ndash; 4+1 hr
-    - construct dummy tests for routes &ndash; 4+1 hr
-    - implement modals &ndash; 2 hr
-    - implement routes according to tests and clarify documentation accordingly &ndash; 6 days\
-      -> **add git branches names to architecture maps**
+- construct dummy routes
+- add documentation for each route
+- construct dummy tests for routes
+- implement routes according to tests and clarify documentation accordingly
 
-4.  End to End or integration testing &ndash; 4+1 days
+[D] MVP Improvement cycles: stages A through C, with:
+
+- Redux state management
+- mongo db modals
+- Login-logout system
+- finally update ui styling: colors, typography etc...
+  --> update mockups and maps accordingly
+
+C. End to End or integration testing &ndash; 4+1 days
 
 #### Notes
 
 - MVP &ndash; Minimal Viable Product
 - working day &ndash; 7 or 8 hr
+
+# MVP Technologies
+
+1. Client technologies
+
+- Redux- state management
+- jest- testing
+- styled components- styling
+- material ui - component library
+- JSDocs - documentation
+- prop-types - type checking
