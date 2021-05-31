@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  container: { backgroundColor: "#1F4E79" },
+  container: { backgroundColor: theme.palette.primary1Color },
 
   menuButton: {
     marginRight: theme.spacing(2),
@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    border: "0.5px solid #FFC000",
+    border: `0.5px solid ${theme.palette.primary2Color}`,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
