@@ -1,21 +1,32 @@
 import React from "react";
-import Typograpy from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
+import { Typography, Divider, List, Container } from "@material-ui/core";
 import ListItem from "../../components/ListItem/ListItem";
-import Container from "@material-ui/core/Container";
+
 import items from "../../items.json";
+import { Link } from "react-router-dom";
 import { useStyles } from "./HomeStyles";
 
 export default function Home() {
   const classes = useStyles();
+
   return (
     <Container>
-      <Typograpy variant="h4" component="h4" className={classes.title}>
+      <Typography variant="h4" component="h4" className={classes.title}>
         Available Now
-      </Typograpy>
+      </Typography>
       <List className={classes.container}>
         {items.map((item, index) => (
-          <ListItem {...item} id={index} key={index} />
+          <Link
+            className={classes.link}
+            to={{
+              pathname: `/items/${index}`,
+              state: item,
+            }}
+            key={index}
+          >
+            <ListItem item={item} id={index} />
+            <Divider />
+          </Link>
         ))}
       </List>
     </Container>

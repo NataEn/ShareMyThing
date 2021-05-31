@@ -1,40 +1,43 @@
 import React from "react";
 import clsx from "clsx";
+import { useLocation } from "react-router-dom";
 import { useStyles } from "./ListItemStyles";
+import RequestModal from "../RequestModal/RequestModal";
 import PropTypes from "prop-types";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { List, ListItem, Button, Typography } from "@material-ui/core";
 
 /**
  *
- * @description {Function} ListItemShared function react component for displaying the shared item in the main list
+ * @description {Function} ListItemShared function react component for displaying the shared item data
  * @returns react component
  */
 
-export default function ListItemShared({
-  id,
-  imgURL,
-  description,
-  lastUsed,
-  inUseBy,
-  publishedBy,
-}) {
+export default function ListItemShared({ id, item }) {
   const classes = useStyles();
-  debugger;
+  const location = useLocation();
+  const { description, lastUsed, inUseBy, imgURL, name } = item;
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = (e) => {
+    if (location.pathname === "/") {
+      e.nativeEvent.stopImmediatePropagation();
+    }
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    e.nativeEvent.stopImmediatePropagation();
+    console.log("clicked close modal");
+    setOpen(false);
+  };
+  console.log(item);
+
   return (
-    <Link
-      className={classes.link}
-      to={{
-        pathname: `/items/${id}`,
-        state: { imgURL, description, lastUsed, inUseBy, publishedBy },
-      }}
-    >
-      <ListItem>
+    <ListItem>
+      <div className={classes.container}>
         <img src={imgURL} alt="item" className={classes.image} />
         <List className={classes.description}>
+          <Typography variant={"subtitle1"}>{name}</Typography>
           <ListItem className={classes.description} key={`${id}-description`}>
             description:{description}
           </ListItem>
@@ -43,9 +46,6 @@ export default function ListItemShared({
           </ListItem>
           <ListItem className={classes.description} key={`${id}-inUseBy`}>
             in use by:{inUseBy}
-          </ListItem>
-          <ListItem className={classes.description} key={`${id}-publishedBy`}>
-            published by:{publishedBy}
           </ListItem>
           <ListItem className={classes.description} key={`${id}-btns`}>
             {/* <Button
@@ -58,17 +58,30 @@ export default function ListItemShared({
               className={clsx(classes.requestBtn, classes.btn)}
               size={"small"}
               onClick={(e) => {
-                e.preventDefault();
+                if (location.pathname === "/") {
+                  e.nativeEvent.stopImmediatePropagation();
+                }
+                handleOpen(e);
                 console.log("clicked button");
               }}
+              // onClickCapture={(e) => {
+              //   e.stopPropagation();
+              //   e.nativeEvent.stopImmediatePropagation();
+              //   handleOpen();
+              // }}
             >
               Request
             </Button>
           </ListItem>
+          <RequestModal
+            open={open}
+            handleClose={handleClose}
+            from={"Jack"}
+            to={"David"}
+          />
         </List>
-      </ListItem>
-      <Divider />
-    </Link>
+      </div>
+    </ListItem>
   );
 }
 

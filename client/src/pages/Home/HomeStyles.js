@@ -15,4 +15,8 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     padding: theme.spacing(3),
   },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+  },
 }));

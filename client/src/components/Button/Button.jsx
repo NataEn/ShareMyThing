@@ -8,7 +8,7 @@ import { toggleClick } from "../../redux/actions/button.actions";
  * @returns
  */
 
-export default function Button({ text }) {
+export default function Button({ text, actionType }) {
   const dispatch = useDispatch();
   const buttonState = useSelector((state) => state.button);
   return (
