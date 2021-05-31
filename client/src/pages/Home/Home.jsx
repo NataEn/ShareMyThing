@@ -14,8 +14,8 @@ export default function Home() {
         Available Now
       </Typograpy>
       <List className={classes.container}>
-        {items.map((item) => (
-          <ListItem {...item} />
+        {items.map((item, index) => (
+          <ListItem {...item} id={index} key={index} />
         ))}
       </List>
     </Container>

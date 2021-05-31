@@ -1,10 +1,12 @@
 import React from "react";
+import clsx from "clsx";
 import { useStyles } from "./ListItemStyles";
 import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 /**
  *
@@ -13,6 +15,7 @@ import Button from "@material-ui/core/Button";
  */
 
 export default function ListItemShared({
+  id,
   imgURL,
   description,
   lastUsed,
@@ -20,33 +23,44 @@ export default function ListItemShared({
   publishedBy,
 }) {
   const classes = useStyles();
+  debugger;
   return (
-    <>
-      <ListItem className={classes.container}>
+    <Link
+      className={classes.link}
+      to={{
+        pathname: `/items/${id}`,
+        state: { imgURL, description, lastUsed, inUseBy, publishedBy },
+      }}
+    >
+      <ListItem>
         <img src={imgURL} alt="item" className={classes.image} />
         <List className={classes.description}>
-          <ListItem className={classes.description}>
+          <ListItem className={classes.description} key={`${id}-description`}>
             description:{description}
           </ListItem>
-          <ListItem className={classes.description}>
+          <ListItem className={classes.description} key={`${id}-lastUsed`}>
             last used:{lastUsed}
           </ListItem>
-          <ListItem className={classes.description}>
+          <ListItem className={classes.description} key={`${id}-inUseBy`}>
             in use by:{inUseBy}
           </ListItem>
-          <ListItem className={classes.description}>
+          <ListItem className={classes.description} key={`${id}-publishedBy`}>
             published by:{publishedBy}
           </ListItem>
-          <ListItem className={classes.description}>
-            <Button
+          <ListItem className={classes.description} key={`${id}-btns`}>
+            {/* <Button
               className={[classes.releaseBtn, classes.btn]}
               size={"small"}
             >
               Release
-            </Button>
+            </Button> */}
             <Button
-              className={[classes.requestBtn, classes.btn]}
+              className={clsx(classes.requestBtn, classes.btn)}
               size={"small"}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("clicked button");
+              }}
             >
               Request
             </Button>
@@ -54,7 +68,7 @@ export default function ListItemShared({
         </List>
       </ListItem>
       <Divider />
-    </>
+    </Link>
   );
 }
 

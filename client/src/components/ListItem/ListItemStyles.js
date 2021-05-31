@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+  },
   container: {
     width: "100%",
     display: "flex",
@@ -26,6 +30,9 @@ export const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing.apply(2),
     color: "white",
     fontWeight: 500,
+    "&:hover": {
+      color: theme.palette.primary2Color,
+    },
   },
   requestBtn: {
     backgroundColor: theme.palette.primary2Color,
@@ -34,5 +41,8 @@ export const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing.apply(2),
     color: "white",
     fontWeight: 500,
+    "&:hover": {
+      color: theme.palette.primary2Color,
+    },
   },
 }));
