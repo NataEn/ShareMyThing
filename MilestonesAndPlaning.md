@@ -37,7 +37,7 @@ Known bugs and issues:
 - styling needs refactoring: spacing, add animations, complete responsiveness
 - what data is new and revealed in the item's page?
 
-  [B] Front-end MVP implementation, documentation and testing - 2 days- 3rd of may 2021
+  [B] Front-end MVP implementation, documentation and testing - 2 days- 3rd of Jun 2021
 
 - create add item form
 - implement filtration and search functionalities
@@ -45,14 +45,14 @@ Known bugs and issues:
 - unit testing **missing**
 - documentation **missing**
 
-[D] Back-end implementation, documentation and testing-2 days-7th of may 2021
+[D] Back-end implementation, documentation and testing-2 days-7th of Jun 2021
 
 - create simple mockup for the server - 2hr
 - construct dummy routes for: getting items, specific item, creating item, all users
 - add documentation for each route
 - unit testing
 
-[E] Back-end implementation, documentation and testing-2.5 days-10th of may 2021
+[E] Back-end implementation, documentation and testing-2.5 days-10th of Jun 2021
 
 - use mongo and mongoose for creating models for items and users
 - add documentation for each route
@@ -67,16 +67,16 @@ Known bugs and issues:
 - finally update ui styling: colors, typography etc...
   --> update mockups and maps accordingly
 
-[f] End to End or integration testing &ndash; 4+1 days- 24th of may 2021
+[f] End to End or integration testing &ndash; 4+1 days- 24th of Jun 2021
 
-**Final estimated delivery: 28th of may 2021**
+**Final estimated delivery: 28th of Jun 2021**
 
 #### Notes
 
 - MVP &ndash; Minimal Viable Product
 - working day &ndash; 7 or 8 hr
 
-# MVP Technologies-
+# MVP Technologies
 
 (delivered on 1st of may 2021)
 
