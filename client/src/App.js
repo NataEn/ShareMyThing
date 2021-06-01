@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import Home from "./pages/Home/Home";
 import SharedItem from "./pages/SharedItem/SharedItem";
 import Navbar from "./components/Navbar/Navbar";
+import ItemForm from "./components/AddItemForm/AddItemForm";
 import Copyright from "./components/Copyright/Copyright";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,16 +16,22 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className={classes.App}>
         <CssBaseline />
+
         <Router>
           <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/items/:id">
-              <SharedItem />
-            </Route>
-          </Switch>
+          <div className={classes.main}>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/items/addItem">
+                <ItemForm />
+              </Route>
+              <Route exact path="/items/:id">
+                <SharedItem />
+              </Route>
+            </Switch>
+          </div>
           <footer className={classes.footer}>
             <Copyright />
           </footer>

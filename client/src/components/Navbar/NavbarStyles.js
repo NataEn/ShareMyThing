@@ -1,6 +1,7 @@
 import { fade, makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
+  navbar: { position: "fixed", top: "0", display: "block" },
   grow: {
     flexGrow: 1,
   },
@@ -11,8 +12,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "block",
-    textDecoration: "none",
+
     color: "white",
+  },
+  a: {
+    textDecoration: "none",
     "&:hover": {
       textDecoration: "none",
     },

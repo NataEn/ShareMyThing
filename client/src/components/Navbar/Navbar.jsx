@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -12,10 +12,10 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.navbar}>
       <AppBar>
         <Toolbar className={classes.container}>
-          <a className={classes.title} href="/">
+          <a className={clsx(classes.title, classes.a)} href="/">
             <Typography variant="h6" noWrap>
               ShareHub
             </Typography>{" "}
@@ -36,7 +36,9 @@ const Navbar = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button className={classes.shareButton}>Share</Button>
+            <a className={classes.a} href="/items/addItem">
+              <Button className={classes.shareButton}>Share</Button>
+            </a>
           </div>
         </Toolbar>
       </AppBar>
