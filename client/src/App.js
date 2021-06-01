@@ -1,16 +1,19 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AppStyled, theme } from "./AppStyled";
+import { theme } from "./theme";
+import { useStyles } from "./AppStyles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Home from "./pages/Home/Home";
 import SharedItem from "./pages/SharedItem/SharedItem";
 import Navbar from "./components/Navbar/Navbar";
+import Copyright from "./components/Copyright/Copyright";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 function App() {
+  const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
-      <AppStyled className="App">
+      <div className={classes.App}>
         <CssBaseline />
         <Router>
           <Navbar />
@@ -22,8 +25,11 @@ function App() {
               <SharedItem />
             </Route>
           </Switch>
+          <footer className={classes.footer}>
+            <Copyright />
+          </footer>
         </Router>
-      </AppStyled>
+      </div>
     </ThemeProvider>
   );
 }
