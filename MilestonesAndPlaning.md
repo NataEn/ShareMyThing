@@ -20,7 +20,7 @@ A web application where users can share things that are not in use, e.g. furnitu
 - map minimal front-end code architecture-**missing**
 - map back-end code architecture - map database modals and their relations- **missing**
 
-[B] Front-end MVP implementation, documentation and testing - 2 days- 1st of may 2021
+[B] Front-end MVP implementation, documentation and testing - 2 days- 1st of Jun 2021
 
 - create json files with dummy back-end data
 - construct dummy components
