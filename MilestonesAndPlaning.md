@@ -67,7 +67,9 @@ Known bugs and issues:
 - finally update ui styling: colors, typography etc...
   --> update mockups and maps accordingly
 
-C. End to End or integration testing &ndash; 4+1 days
+[f] End to End or integration testing &ndash; 4+1 days- 24th of may 2021
+
+**Final estimated delivery: 28th of may 2021**
 
 #### Notes
 
