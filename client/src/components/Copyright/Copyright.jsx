@@ -12,12 +12,12 @@ export default function Copyright() {
       align="center"
       className={classes.copyright}
     >
-      {"Copyright © "}
+      {"Copyright "} &nbsp;
       <Link
         color="inherit"
         href="https://codesandbox.io/s/github/NataEn/SharingHub/tree/main/client"
       >
-        ShareHub
+        ShareHub {" © "}
       </Link>
       &nbsp;
       {new Date().getFullYear()}
