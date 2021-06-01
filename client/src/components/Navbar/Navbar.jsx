@@ -6,18 +6,21 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { Button } from "@material-ui/core";
-import { useStyles } from "./StyledNavbar";
+import { useStyles } from "./NavbarStyles";
 
 const Navbar = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.grow}>
-      <AppBar position="sticky">
+      <AppBar>
         <Toolbar className={classes.container}>
-          <Typography className={classes.title} variant="h6" noWrap>
-            ShareHub
-          </Typography>
+          <a className={classes.title} href="/">
+            <Typography variant="h6" noWrap>
+              ShareHub
+            </Typography>{" "}
+          </a>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

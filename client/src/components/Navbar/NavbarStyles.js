@@ -11,6 +11,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "block",
+    textDecoration: "none",
+    color: "white",
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
   search: {
     position: "relative",
