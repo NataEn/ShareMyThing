@@ -18,7 +18,13 @@ const AddItemForm = () => {
       <Typography variant={"h6"} className={classes.h6}>
         Share Item
       </Typography>
-      <form className={classes.form}>
+      <form
+        className={classes.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log("submitting form");
+        }}
+      >
         <ImagesInput />
         <TextField
           id="title"
@@ -43,15 +49,16 @@ const AddItemForm = () => {
           id="condition"
           className={classes.formInput}
           label="Item condition"
-        />
+        />{" "}
+        <Button
+          variant="contained"
+          size={"small"}
+          className={clsx(classes.btn, classes.confirmBtn)}
+          type="submit"
+        >
+          Share
+        </Button>
       </form>
-      <Button
-        variant="contained"
-        size={"small"}
-        className={clsx(classes.btn, classes.confirmBtn)}
-      >
-        Share
-      </Button>
     </Container>
   );
 };
