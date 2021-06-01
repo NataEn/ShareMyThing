@@ -13,10 +13,7 @@ export default function Copyright() {
       className={classes.copyright}
     >
       {"Copyright "} &nbsp;
-      <Link
-        color="inherit"
-        href="https://codesandbox.io/s/github/NataEn/SharingHub/tree/main/client"
-      >
+      <Link color="inherit" href="/">
         ShareHub {" © "}
       </Link>
       &nbsp;
