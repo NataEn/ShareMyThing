@@ -1,7 +1,7 @@
 import { fade, makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
-  navbar: { position: "fixed", top: "0", display: "block" },
+  navbar: { position: "fixed", top: "0", display: "block", zIndex: "100" },
   grow: {
     flexGrow: 1,
   },
@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "block",
-
     color: "white",
   },
   a: {

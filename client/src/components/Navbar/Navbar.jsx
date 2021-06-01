@@ -8,6 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Button } from "@material-ui/core";
 import { useStyles } from "./NavbarStyles";
 
+//TODO: implement styling as in https://css-tricks.com/styling-based-on-scroll-position/
 const Navbar = () => {
   const classes = useStyles();
 
