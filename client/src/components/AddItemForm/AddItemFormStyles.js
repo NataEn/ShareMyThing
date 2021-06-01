@@ -8,17 +8,30 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    margin: theme.spacing(2),
+    margin: "2rem auto",
+    width: "40%",
   },
   h6: { textAlign: "center" },
   form: {
     margin: "0 auto",
-    width: "60%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
   },
   formInput: {
     margin: theme.spacing(2),
+  },
+  btn: {
+    margin: "0",
+    padding: theme.spacing(0.5),
+    width: "max-content",
+    alignSelf: "flex-end",
+  },
+  confirmBtn: {
+    backgroundColor: theme.palette.primary2Color,
+
+    color: "white",
+    "&:hover": { color: theme.palette.primary2Color, backgroundColor: "white" },
   },
 }));

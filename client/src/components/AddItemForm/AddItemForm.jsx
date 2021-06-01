@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useStyles } from "./AddItemFormStyles";
 import TextField from "@material-ui/core/TextField";
-import { Typography, Container } from "@material-ui/core";
-
+import { Typography, Container, Button } from "@material-ui/core";
 import ImagesInput from "../ImagesInput/ImagesInput";
+
+import clsx from "clsx";
 
 const AddItemForm = () => {
   const classes = useStyles();
@@ -44,6 +45,13 @@ const AddItemForm = () => {
           label="Item condition"
         />
       </form>
+      <Button
+        variant="contained"
+        size={"small"}
+        className={clsx(classes.btn, classes.confirmBtn)}
+      >
+        Share
+      </Button>
     </Container>
   );
 };
