@@ -34,6 +34,7 @@ Known bugs and issues:
   suggested solutions did not work-`event.stopPropagation`- did not have any effect
   `e.nativeEvent.stopImmediatePropagation`-prevented the opening of the modal
   final temporary solution- change the incorporation of the link in the component structure.
+- for styling - use `useStyles` hook of material ui instead of styledComponents library
 - styling needs refactoring: spacing, add animations, complete responsiveness
 - what data is new and revealed in the item's page?
 
