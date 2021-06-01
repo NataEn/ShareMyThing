@@ -48,4 +48,11 @@ export const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary2Color,
     },
   },
+  link: {
+    display: "inline",
+    width: "15%",
+    textDecoration: "none",
+    color: "inherit",
+    marginRight: theme.spacing(2),
+  },
 }));

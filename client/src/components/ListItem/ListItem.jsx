@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useStyles } from "./ListItemStyles";
 import RequestModal from "../RequestModal/RequestModal";
 import PropTypes from "prop-types";
@@ -35,7 +35,17 @@ export default function ListItemShared({ id, item }) {
   return (
     <ListItem>
       <div className={classes.container}>
-        <img src={imgURL} alt="item" className={classes.image} />
+        <Link
+          className={classes.link}
+          to={{
+            pathname: `/items/${id}`,
+            state: item,
+          }}
+          key={id}
+        >
+          <img src={imgURL} alt="item" className={classes.image} />
+        </Link>
+
         <List className={classes.description}>
           <Typography variant={"subtitle1"}>{name}</Typography>
           <ListItem className={classes.description} key={`${id}-description`}>
@@ -58,17 +68,9 @@ export default function ListItemShared({ id, item }) {
               className={clsx(classes.requestBtn, classes.btn)}
               size={"small"}
               onClick={(e) => {
-                if (location.pathname === "/") {
-                  e.nativeEvent.stopImmediatePropagation();
-                }
                 handleOpen(e);
                 console.log("clicked button");
               }}
-              // onClickCapture={(e) => {
-              //   e.stopPropagation();
-              //   e.nativeEvent.stopImmediatePropagation();
-              //   handleOpen();
-              // }}
             >
               Request
             </Button>
