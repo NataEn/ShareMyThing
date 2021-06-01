@@ -3,6 +3,8 @@ import { useStyles } from "./AddItemFormStyles";
 import TextField from "@material-ui/core/TextField";
 import { Typography, Container } from "@material-ui/core";
 
+import ImagesInput from "../ImagesInput/ImagesInput";
+
 const AddItemForm = () => {
   const classes = useStyles();
   const [value, setValue] = useState();
@@ -16,6 +18,7 @@ const AddItemForm = () => {
         Share Item
       </Typography>
       <form className={classes.form}>
+        <ImagesInput />
         <TextField
           id="title"
           label="Item title"
