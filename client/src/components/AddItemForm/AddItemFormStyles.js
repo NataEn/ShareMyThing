@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   formInput: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1.5),
   },
   btn: {
     margin: "0",

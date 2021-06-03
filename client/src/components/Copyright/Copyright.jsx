@@ -1,9 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useStyles } from "./CopyrightStyles";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+/**
+ * @name Copyright
+ * @description copyright message at the bottom of each page
+ * @returns {JSX.Element} Copyright JSX element
+ */
 
-export default function Copyright() {
+const Copyright = () => {
   const classes = useStyles();
   return (
     <Typography
@@ -20,4 +26,6 @@ export default function Copyright() {
       {new Date().getFullYear()}
     </Typography>
   );
-}
+};
+export default Copyright;
+Copyright.propTypes = {};

@@ -1,7 +1,14 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { useStyles } from "./ImagesInputStyles";
 import { Typography, IconButton } from "@material-ui/core";
 import { PhotoLibrary, Delete } from "@material-ui/icons";
+
+/**
+ * @name ImagesInput
+ * @description input field for multiple images
+ * @returns {JSX.Element} JSX element
+ */
 
 const ImagesInput = () => {
   const fileInput = useRef(null);
@@ -70,4 +77,5 @@ const ImagesInput = () => {
   );
 };
 
+ImagesInput.propTypes = {};
 export default ImagesInput;

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useStyles } from "./AddItemFormStyles";
 import TextField from "@material-ui/core/TextField";
 import { Typography, Container, Button } from "@material-ui/core";
 import ImagesInput from "../ImagesInput/ImagesInput";
 
 import clsx from "clsx";
+
+/**
+ * @name AddItemForm
+ * @description gets data about a shared item
+ * @returns {JSX.Element} JSX element
+ */
 
 const AddItemForm = () => {
   const classes = useStyles();
@@ -62,5 +69,5 @@ const AddItemForm = () => {
     </Container>
   );
 };
-
+AddItemForm.propTypes = {};
 export default AddItemForm;

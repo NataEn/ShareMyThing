@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -7,6 +8,11 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { Button } from "@material-ui/core";
 import { useStyles } from "./NavbarStyles";
+
+/**
+ * @description top navigation bar of app
+ * @returns JSX element
+ */
 
 //TODO: implement styling as in https://css-tricks.com/styling-based-on-scroll-position/
 const Navbar = () => {
@@ -46,5 +52,7 @@ const Navbar = () => {
     </div>
   );
 };
+
+Navbar.propTypes = {};
 
 export default Navbar;

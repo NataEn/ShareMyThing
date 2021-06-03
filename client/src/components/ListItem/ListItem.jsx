@@ -1,15 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useLocation, Link } from "react-router-dom";
 import { useStyles } from "./ListItemStyles";
 import RequestModal from "../RequestModal/RequestModal";
-import PropTypes from "prop-types";
 import { List, ListItem, Button, Typography } from "@material-ui/core";
 
 /**
- *
- * @description {Function} ListItemShared function react component for displaying the shared item data
- * @returns react component
+ * @name ListItemShared
+ * @description display shared item data
+ * @returns {JSX.Element} react component
  */
 
 export default function ListItemShared({ id, item }) {

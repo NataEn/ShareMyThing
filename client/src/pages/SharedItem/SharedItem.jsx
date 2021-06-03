@@ -1,10 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Container, Typography } from "@material-ui/core";
 
 import { useStyles } from "./SharedItemStyles";
 import { useLocation, useParams } from "react-router-dom";
 import ListItemComponent from "../../components/ListItem/ListItem";
-
+/**
+ * @description page of each shared item
+ * @returns JSX element
+ */
 export default function SharedItem() {
   const { id } = useParams();
   const item = useLocation().state;
@@ -26,3 +30,4 @@ export default function SharedItem() {
     </div>
   );
 }
+SharedItem.propTypes = {};
