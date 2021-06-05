@@ -5,14 +5,15 @@ import { Typography, IconButton } from "@material-ui/core";
 import { PhotoLibrary, Delete } from "@material-ui/icons";
 
 /**
+ * Input field for multiple images
  * @name ImagesInput
- * @description input field for multiple images
+ * @param {Array} imgs react state object array of all images, e.g. {name:"image name", url:url encoding of img, file: img blob }
+ * @param {Function} setImgs react set-state function to update the imgs array
  * @returns {JSX.Element} JSX element
  */
 
-const ImagesInput = () => {
+const ImagesInput = ({ imgs, setImgs }) => {
   const fileInput = useRef(null);
-  const [imgs, setImgs] = useState([]);
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -20,7 +21,7 @@ const ImagesInput = () => {
         imgs.map((img, index) => {
           console.log("image", img, index);
           return (
-            <div className={classes.imgContainer}>
+            <div className={classes.imgContainer} key={`${img.name}-${index}`}>
               <img
                 src={img.url}
                 alt={img.name}
@@ -77,5 +78,8 @@ const ImagesInput = () => {
   );
 };
 
-ImagesInput.propTypes = {};
+ImagesInput.propTypes = {
+  img: PropTypes.array,
+  setImgs: PropTypes.func,
+};
 export default ImagesInput;

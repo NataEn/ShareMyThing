@@ -16,9 +16,27 @@ import clsx from "clsx";
 const AddItemForm = () => {
   const classes = useStyles();
   const [value, setValue] = useState();
+  const [imgs, setImgs] = useState([]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("in submit");
+    const data = new FormData();
+    //TODO: validate the inputs
+    data.append("title", event.target.title.value);
+    data.append("owner", event.target.owner.value);
+    data.append("description", event.target.description.value);
+    data.append("condition", event.target.condition.value);
+    data.append(
+      "images",
+      imgs.map((img) => img.file)
+    );
+    alert(`sent item data: ${JSON.stringify(Object.fromEntries(data))}`);
+    //TODO: send formData object to the server
   };
   return (
     <Container className={classes.container}>
@@ -27,21 +45,22 @@ const AddItemForm = () => {
       </Typography>
       <form
         className={classes.form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("submitting form");
-        }}
+        onSubmit={handleSubmit}
+        noValidate
+        encType="multipart/form-data"
       >
-        <ImagesInput />
+        <ImagesInput imgs={imgs} setImgs={setImgs} />
         <TextField
           id="title"
           label="Item title"
           className={classes.formInput}
+          name="title"
         />
         <TextField
           id="my name"
           className={classes.formInput}
           label="Item owner"
+          name="owner"
         />
         <TextField
           id="description"
@@ -51,17 +70,20 @@ const AddItemForm = () => {
           rowsMax={5}
           value={value}
           onChange={handleChange}
+          name="description"
         />
         <TextField
           id="condition"
           className={classes.formInput}
           label="Item condition"
-        />{" "}
+          name="condition"
+        />
         <Button
           variant="contained"
           size={"small"}
           className={clsx(classes.btn, classes.confirmBtn)}
           type="submit"
+          onClick={(e) => console.log("clicked submit btn")}
         >
           Share
         </Button>
