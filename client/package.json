@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "debug": "NODE_ENV=debug npm test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest-cli": "^27.0.4",
+    "puppeteer": "^10.0.0",
+    "react-test-renderer": "^17.0.2"
   }
 }

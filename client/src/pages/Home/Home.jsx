@@ -20,17 +20,7 @@ export default function Home() {
       </Typography>
       <List className={classes.container}>
         {items.map((item, index) => (
-          <Link
-            className={classes.link}
-            to={{
-              pathname: `/items/${index}`,
-              state: item,
-            }}
-            key={index}
-          >
-            <ListItem item={item} id={index} />
-            <Divider />
-          </Link>
+          <ListItem item={item} id={index} />
         ))}
       </List>
     </Container>
