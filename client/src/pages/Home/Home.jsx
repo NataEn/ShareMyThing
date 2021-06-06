@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import { Typography, Divider, List, Container } from "@material-ui/core";
 import ListItem from "../../components/ListItem/ListItem";
 
-import items from "../../items.json";
 import { Link } from "react-router-dom";
 import { useStyles } from "./HomeStyles";
 /**
  * @description home page
  * @returns JSX element
  */
-export default function Home() {
+export default function Home({ items }) {
   const classes = useStyles();
 
   return (

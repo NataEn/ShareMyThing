@@ -12,7 +12,7 @@ import { List, ListItem, Button, Typography } from "@material-ui/core";
  * @description display shared item data
  * @returns {JSX.Element} react component
  */
-
+//TODO: debug animation on hover and make the link to a translateY change from
 export default function ListItemShared({ id, item }) {
   const classes = useStyles();
   const location = useLocation();
