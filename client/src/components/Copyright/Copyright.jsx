@@ -17,6 +17,7 @@ const Copyright = () => {
       color="textSecondary"
       align="center"
       className={classes.copyright}
+      title="copyright"
     >
       {"Copyright "} &nbsp;
       <Link color="inherit" href="/">
