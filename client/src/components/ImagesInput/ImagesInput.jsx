@@ -50,7 +50,11 @@ const ImagesInput = ({ imgs, setImgs }) => {
           component="span"
           onClick={() => fileInput.current.click()}
         >
-          <Typography variant={"subtitle2"} className={classes.imglabel}>
+          <Typography
+            variant={"subtitle2"}
+            className={classes.imglabel}
+            title="addImgText"
+          >
             Add Images
           </Typography>{" "}
           &nbsp;
