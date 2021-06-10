@@ -14,19 +14,28 @@ import items from "./items.json";
 
 function App() {
   const [shareHubItems, setShareHubItems] = useState(items);
+  const [filteredItems, setFilteredItems] = useState(() => shareHubItems);
   const filterShareHubItems = (searchStr = null) => {
-    debugger;
     if (!searchStr | (searchStr.length === 0)) {
-      return items;
+      setFilteredItems(shareHubItems);
     } else {
-      const filteredItems = items.filter((item) => {
-        const matchedSearch =
-          item.title.match(searchStr) |
-          item.description.match(searchStr) |
-          item.inUseBy.match(searchStr);
-        return matchedSearch.length > 0;
+      const filtered = filteredItems.filter((item) => {
+        const matchFromName = item.name.match(searchStr);
+        const matchFromDescription = item.description.match(searchStr);
+        const matchFromInUseBy = item.inUseBy.match(searchStr);
+        const matchFromPublishedBy = item.publishedBy.match(searchStr);
+
+        if (
+          matchFromName ||
+          matchFromDescription ||
+          matchFromInUseBy ||
+          matchFromPublishedBy
+        ) {
+          return item;
+        }
       });
-      setShareHubItems(filteredItems);
+
+      setFilteredItems(filtered);
     }
   };
 
@@ -41,7 +50,7 @@ function App() {
           <div className={classes.main}>
             <Switch>
               <Route exact path="/">
-                <Home items={shareHubItems} />
+                <Home items={filteredItems} />
               </Route>
               <Route exact path="/items/addItem">
                 <ItemForm />
