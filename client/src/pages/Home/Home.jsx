@@ -19,7 +19,7 @@ export default function Home({ items }) {
       </Typography>
       <List className={classes.container}>
         {items.map((item, index) => (
-          <ListItem item={item} id={index} />
+          <ListItem item={item} id={index} key={item.name} />
         ))}
       </List>
     </Container>
