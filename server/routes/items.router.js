@@ -90,7 +90,7 @@ router.patch("/:userId/:itemId", async (req, res) => {
   try {
     const item = Item.filter(
       (item) => item.id === itemId && item.publishedBy === userId
-    );
+    )[0];
 
     if (!item) {
       return res.status(404).json({

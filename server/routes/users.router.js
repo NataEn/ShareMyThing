@@ -42,15 +42,14 @@ router.patch("/:userId", async (req, res) => {
   const userId = req.params.userId;
   const updates = Object.keys(req.body);
   try {
-    const user = User.filter((user) => user.id === itemId);
+    const user = User.filter((item) => item.id === userId)[0];
     if (!user) {
       return res.status(404).json({
         message: `user ${userId} wasn't found`,
       });
     }
     updates.forEach((update) => (user[update] = req.body[update]));
-
-    res.json({ user });
+    res.json({ user: user });
   } catch (err) {
     res.status(500).send();
   }
@@ -63,12 +62,16 @@ router.patch("/:userId", async (req, res) => {
 router.delete("/:userId", async (req, res) => {
   const userId = req.params.userId;
   try {
+    let deletedUser;
     const filteredUsers = User.map((user) => {
-      if (user.id === !userId) {
+      if (user.id !== userId) {
         return user;
+      } else {
+        deletedUser = user;
       }
     });
-    if (!user) {
+
+    if (!deletedUser) {
       return res.status(404).json({
         message: `user ${userId} wasn't found`,
       });
@@ -90,12 +93,13 @@ router.delete("/:userId", async (req, res) => {
 router.post("/", async (req, res) => {
   const newUser = {
     ...req.body,
-    id: req.body.firstName,
+    id: req.body.firstName.toLowerCase(),
   };
+  console.log(newUser);
   try {
     User.push(newUser);
     //error handling with db: catch(err){res.status(400).json({ err })};
-    return res.status(201).json({ user });
+    return res.status(201).json({ user: newUser });
   } catch (err) {
     res.status(500).send();
   }
