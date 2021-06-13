@@ -8,7 +8,10 @@ const User = require("../models/User");
  */
 router.get("/", async (req, res) => {
   try {
-    const items = Item;
+    const items = await Item.find({}).sort({
+      date: -1,
+    });
+    console.log("items", items);
     if (!items) {
       return res.status(404).json({ message: `no items found ` });
     }
@@ -25,13 +28,17 @@ router.get("/", async (req, res) => {
 router.get("/item/:itemId", async (req, res) => {
   const itemId = req.params.itemId;
   try {
-    const item = Item.filter((item) => item.id === itemId);
+    const item = await Item.findOne({ _id: itemId });
+    console.log("found item", item);
     if (!item) {
-      return res.status(404).json({ message: ` item ${itemId} not found ` });
+      return res
+        .status(404)
+        .json({ message: `item of id:${itemId} wasn't found` });
     }
-    res.json({ item });
+    return res.json({ item });
   } catch (err) {
-    res.status(500).send();
+    console.log(err);
+    return res.status(500).send();
   }
 });
 
@@ -41,18 +48,20 @@ router.get("/item/:itemId", async (req, res) => {
  */
 router.get("/:userId", async (req, res) => {
   const userId = req.params.userId;
-
   try {
-    const inUseItems = Item.filter((item) => item.inUseBy === userId);
-    const publishedItems = Item.filter((item) => item.publishedBy === userId);
-    if (!inUseItems && !publishedItems) {
-      return res
-        .status(404)
-        .json({ message: `no items used or published by ${userId}found ` });
+    const items = await Item.find({ publishedBy: userId }).sort({
+      date: -1,
+    });
+
+    // alternative
+    // await req.user.populate("Items").execPopulate();
+    // const items = req.user.items;
+    if (!items) {
+      return res.status(404).json({ message: `no items found for ${userId}` });
     }
-    res.json({ inUse: inUseItems, published: publishedItems });
+    res.json({ items });
   } catch (err) {
-    res.status(500).send();
+    return res.status(500).send();
   }
 });
 
@@ -63,19 +72,14 @@ router.get("/:userId", async (req, res) => {
 router.get("/:userId/:itemId", async (req, res) => {
   const userId = req.params.userId;
   const itemId = req.params.itemId;
-  console.log("user", userId, itemId);
   try {
-    const item = Item.filter(
-      (item) => item.id === itemId && item.publishedBy === userId
-    );
+    const item = await Item.findOne({ _id: itemId, publishedBy: userId });
     if (!item) {
-      return res
-        .status(404)
-        .json({ message: `no item ${itemId} published by ${userId} found ` });
+      res.status(404).json({ message: `item of id:${itemId} wasn't found` });
     }
-    res.json({ item });
+    return res.json({ item });
   } catch (err) {
-    res.status(500).send();
+    return res.status(500).send();
   }
 });
 
@@ -87,20 +91,19 @@ router.patch("/:userId/:itemId", async (req, res) => {
   const userId = req.params.userId;
   const itemId = req.params.itemId;
   const updates = Object.keys(req.body);
-  try {
-    const item = Item.filter(
-      (item) => item.id === itemId && item.publishedBy === userId
-    )[0];
 
+  try {
+    const item = await Item.findOne({ _id: itemId, publishedBy: userId });
     if (!item) {
-      return res.status(404).json({
-        message: `item ${itemId} and published by ${userId} wasn't found`,
-      });
+      return res
+        .status(404)
+        .json({ message: `item of id:${itemId} wasn't found` });
     }
     updates.forEach((update) => (item[update] = req.body[update]));
-    res.json({ item: item });
+    item.save();
+    res.json({ item });
   } catch (err) {
-    res.status(500).send();
+    return res.status(500).send();
   }
 });
 
@@ -112,27 +115,17 @@ router.delete("/:userId/:itemId", async (req, res) => {
   const userId = req.params.userId;
   const itemId = req.params.itemId;
   try {
-    let deletedItem;
-    console.log("items", Item);
-    const filteredItems = Item.map((item) => {
-      if (!(item.id === itemId) && !(item.publishedBy === userId)) {
-        return item;
-      } else {
-        deletedItem = item;
-      }
+    const item = await Item.findOneAndDelete({
+      _id: itemId,
+      publishedBy: userId,
     });
-    if (!deletedItem) {
-      return res.status(404).json({
-        message: `item ${itemId} and published by ${userId} wasn't found`,
-      });
+    if (!item) {
+      return res.status(404).send();
     }
-
-    res.json({
-      item: `item ${itemId} and published by ${userId} was deleted`,
-      items: filteredItems,
-    });
+    item.remove();
+    res.json({ item });
   } catch (err) {
-    res.status(500).send();
+    return res.status(500).send();
   }
 });
 
@@ -142,19 +135,14 @@ router.delete("/:userId/:itemId", async (req, res) => {
  */
 router.post("/:userId", async (req, res) => {
   const userId = req.params.userId;
-  const newItem = {
+  const newItem = new Item({
     ...req.body,
     publishedBy: userId,
-  };
-  console.log("item data", userId, newItem);
-  try {
-    Item.push(newItem);
-    console.log("items", Item);
-    //error handling with db: catch(err){res.status(400).json({ err })};
-    return res.status(201).json({ item });
-  } catch (err) {
-    res.status(500).send();
-  }
+  });
+  newItem
+    .save()
+    .then((item) => res.status(201).json({ item }))
+    .catch((err) => res.status(404).json({ err }));
 });
 
 module.exports = router;

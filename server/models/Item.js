@@ -18,7 +18,7 @@ const ItemSchema = new Schema(
     },
     imgUrl: String,
     // img: Buffer,
-    lastUsed: { type: Date },
+    // lastUsed: { type: Date },
     publishedBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -26,7 +26,7 @@ const ItemSchema = new Schema(
     },
     inUseBy: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: "User",
     },
   },
