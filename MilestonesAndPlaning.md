@@ -42,18 +42,23 @@ Known bugs and issues:
 
 - create add item form
 - implement filtration and search functionalities
-- create redux actions and reducers and connect the app state management to redux
+- create redux actions and reducers and connect the app state management to redux **missing**
 - unit testing **missing**
 - documentation **missing**
 
-[D] Back-end implementation, documentation and testing-2 days-7th of Jun 2021
+[D] Back-end implementation, documentation and testing-2 days-10th of Jun 2021
 
-- create simple mockup for the server - 2hr
+- create simple mockup for the server - 2hr **missing**
 - construct dummy routes for: getting items, specific item, creating item, all users
-- add documentation for each route
-- unit testing
+- add documentation for each route **missing**
+- unit testing **missing**
 
-[E] Back-end implementation, documentation and testing-2.5 days-10th of Jun 2021
+[E] Back-end implementation 1.5 hours-14th of Jun 2021
+
+- construct routes for: users: creating user, see all uses,get specific user, login, logout
+- add documentation for each route **missing**
+
+[F] Back-end implementation, documentation and testing-2.5 days-10th of Jun 2021
 
 - use mongo and mongoose for creating models for items and users
 - add documentation for each route
@@ -68,7 +73,7 @@ Known bugs and issues:
 - finally update ui styling: colors, typography etc...
   --> update mockups and maps accordingly
 
-[f] End to End or integration testing &ndash; 4+1 days- 24th of Jun 2021
+[G] End to End or integration testing &ndash; 4+1 days- 24th of Jun 2021
 
 **Final estimated delivery: 28th of Jun 2021**
 
