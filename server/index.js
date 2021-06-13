@@ -1,8 +1,22 @@
 require("dotenv").config();
+const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 
 const PORT = process.env.PORT || 5000;
+
+//DB config
+const db = require("./config/keys").mongoURI;
+
+//connect to mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("connected to mongoDB"))
+  .catch((err) => console.log(err));
 
 const itemsRouter = require("./routes/items.router.js");
 const usersRouter = require("./routes/users.router");
