@@ -91,14 +91,14 @@ router.patch("/:userId/:itemId", async (req, res) => {
     const item = Item.filter(
       (item) => item.id === itemId && item.publishedBy === userId
     );
+
     if (!item) {
       return res.status(404).json({
         message: `item ${itemId} and published by ${userId} wasn't found`,
       });
     }
     updates.forEach((update) => (item[update] = req.body[update]));
-
-    res.json({ item });
+    res.json({ item: item });
   } catch (err) {
     res.status(500).send();
   }
@@ -112,12 +112,16 @@ router.delete("/:userId/:itemId", async (req, res) => {
   const userId = req.params.userId;
   const itemId = req.params.itemId;
   try {
+    let deletedItem;
+    console.log("items", Item);
     const filteredItems = Item.map((item) => {
-      if (item.id === !itemId && item.publishedBy === !userId) {
+      if (!(item.id === itemId) && !(item.publishedBy === userId)) {
         return item;
+      } else {
+        deletedItem = item;
       }
     });
-    if (!item) {
+    if (!deletedItem) {
       return res.status(404).json({
         message: `item ${itemId} and published by ${userId} wasn't found`,
       });
@@ -142,8 +146,10 @@ router.post("/:userId", async (req, res) => {
     ...req.body,
     publishedBy: userId,
   };
+  console.log("item data", userId, newItem);
   try {
     Item.push(newItem);
+    console.log("items", Item);
     //error handling with db: catch(err){res.status(400).json({ err })};
     return res.status(201).json({ item });
   } catch (err) {
