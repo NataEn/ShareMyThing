@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Item = require("../models/Item");
+const User = require("../models/User");
 const upload = require("../middleware/fileUpload");
 const { resizeImage } = require("../utils/imageConfig");
 
@@ -35,6 +36,33 @@ router.get("/item/:itemId", async (req, res) => {
     }
     return res.json({ item });
   } catch (err) {
+    return res.status(500).send();
+  }
+});
+
+/**
+ * @route PATCH api/items/switchuser/:itemId
+ * @description switch the using person to a different user
+ */
+router.patch("/switchuser/:itemId/:nextUser", async (req, res) => {
+  const itemId = req.params.itemId;
+  const nextuserid = req.params.nextUser;
+  try {
+    const item = await Item.findOne({ _id: itemId });
+    const nextUser = await User.findOne({ _id: nextuserid });
+    console.log(nextUser);
+    if (!item) {
+      return res.status(404).json({ err: `item of id:${itemId} wasn't found` });
+    } else if (!nextUser) {
+      return res
+        .status(404)
+        .json({ err: `next user of id:${nextuserid} wasn't found` });
+    }
+    item.inUseBy = nextuserid;
+    item.save();
+    return res.json({ item });
+  } catch (err) {
+    console.log(err);
     return res.status(500).send();
   }
 });
@@ -90,7 +118,7 @@ router.patch("/:userId/:itemId", upload.array("images"), async (req, res) => {
   const updates = Object.keys(req.body);
 
   try {
-    const item = await Item.findOne({ _id: itemId, publishedBy: userId });
+    const item = await Item.findOne({ _id: itemId });
     if (!item) {
       return res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
@@ -104,6 +132,7 @@ router.patch("/:userId/:itemId", upload.array("images"), async (req, res) => {
       images = await Promise.all(imagesPromises);
     }
     item.images = images;
+    item.updatedBy = userId;
     item.save();
     res.json({ item });
   } catch (err) {

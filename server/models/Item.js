@@ -29,6 +29,11 @@ const ItemSchema = new Schema(
       required: false,
       ref: "User",
     },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

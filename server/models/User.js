@@ -100,9 +100,18 @@ UserSchema.pre("save", async function (next) {
 });
 
 //middleware to delete user data when user is removed
+//user cannot be deleted if is using items
 UserSchema.pre("remove", async function (next) {
   const user = this;
-  await Item.deleteMany({ publishedBy: user._id });
+  const inUseItems = Item.find({ inUseBy: user.id });
+  if (!inUseItems) {
+    await Item.updateMany(
+      { publishedBy: user.id },
+      { publishedBy: user.email }
+    );
+  } else {
+    throw "there are items used by this user";
+  }
   next();
 });
 
