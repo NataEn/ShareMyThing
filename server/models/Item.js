@@ -16,6 +16,9 @@ const ItemSchema = new Schema(
     description: {
       type: String,
     },
+    condition: {
+      type: String,
+    },
     imgUrl: String,
     images: [Buffer],
     // lastUsed: { type: Date },
