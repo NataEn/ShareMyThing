@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Item = require("../models/Item");
-const User = require("../models/User");
+const upload = require("../middleware/fileUpload");
+const { resizeImage } = require("../utils/imageConfig");
 
 /**
  * @route GET api/items/
@@ -133,11 +134,29 @@ router.delete("/:userId/:itemId", async (req, res) => {
  * @route POST api/items/:userId
  * @description create new item  by the user
  */
-router.post("/:userId", async (req, res) => {
+router.post("/:userId", upload.array("images"), async (req, res) => {
   const userId = req.params.userId;
+
+  const { name, category, description } = req.body;
+  let images;
+  if (req.files) {
+    const imagesPromises = req.files.map((file) =>
+      resizeImage(file.buffer, 100, 100)
+    );
+    images = await Promise.all(imagesPromises);
+    console.log("images", images);
+  }
+
+  if (!name || !category || !description) {
+    return res.status(400).json({ err: "Please enter all fields!" });
+  }
+
   const newItem = new Item({
-    ...req.body,
+    name,
+    category,
+    description,
     publishedBy: userId,
+    images,
   });
   newItem
     .save()
