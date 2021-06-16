@@ -53,17 +53,15 @@ Known bugs and issues:
 - add documentation for each route **missing**
 - unit testing **missing**
 
-[E] Back-end implementation 1.5 hours-14th of Jun 2021
+[E] Back-end implementation 3 hours-14th of Jun 2021
 
 - construct routes for: users: creating user, see all uses,get specific user, login, logout
 - add documentation for each route **missing**
 
-[F] Back-end implementation, documentation and testing-2.5 days-10th of Jun 2021
+[F] Back-end implementation, documentation and testing-2 hours-16th of Jun 2021
 
-- use mongo and mongoose for creating models for items and users
-- add documentation for each route
-- construct dummy tests for routes
-- implement routes according to tests and clarify documentation accordingly
+- creating switch functionality or route to switch use of item
+- add documentation for route
 
 \*\* MVP Improvement cycles: stages A through E, with:
 
