@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const upload = require("../middleware/fileUpload");
+const { resizeImage } = require("../utils/imageConfig");
 
 /**
  * @route GET api/users/
@@ -7,9 +9,9 @@ const User = require("../models/User");
  */
 router.get("/", async (req, res) => {
   try {
-    const users = User;
+    const users = await User.find({}).sort({ register_date: -1 });
     if (!users) {
-      return res.status(404).json({ message: `no users found ` });
+      return res.status(404).json({ err: `no users found ` });
     }
     res.json({ users });
   } catch (err) {
@@ -24,9 +26,10 @@ router.get("/", async (req, res) => {
 router.get("/:userId", async (req, res) => {
   const userId = req.params.userId;
   try {
-    const user = User.filter((user) => user.id === userId);
+    const user = await User.findOne({ _id: userId });
+    console.log(user);
     if (!user) {
-      return res.status(404).json({ message: `no user ${userId} found ` });
+      return res.status(404).json({ err: `no user ${userId} found ` });
     }
     res.json({ user });
   } catch (err) {
@@ -38,19 +41,28 @@ router.get("/:userId", async (req, res) => {
  * @route PATCH api/users/:userId
  * @description update specific user
  */
-router.patch("/:userId", async (req, res) => {
+router.patch("/:userId", upload.single("avatar"), async (req, res) => {
   const userId = req.params.userId;
   const updates = Object.keys(req.body);
+
   try {
-    const user = User.filter((item) => item.id === userId)[0];
+    const user = await User.findOne({ _id: userId });
     if (!user) {
       return res.status(404).json({
-        message: `user ${userId} wasn't found`,
+        err: `user ${userId} wasn't found`,
       });
     }
+    let avatar;
+    if (req.file) {
+      avatar = await resizeImage(req.file.buffer, 100, 100);
+    }
+
     updates.forEach((update) => (user[update] = req.body[update]));
+    user.avatar = avatar;
+    user.save();
     res.json({ user: user });
   } catch (err) {
+    console.log(err);
     res.status(500).send();
   }
 });
@@ -62,24 +74,17 @@ router.patch("/:userId", async (req, res) => {
 router.delete("/:userId", async (req, res) => {
   const userId = req.params.userId;
   try {
-    let deletedUser;
-    const filteredUsers = User.map((user) => {
-      if (user.id !== userId) {
-        return user;
-      } else {
-        deletedUser = user;
-      }
+    const deletedUser = await User.findOneAndDelete({
+      _id: userId,
     });
-
     if (!deletedUser) {
-      return res.status(404).json({
-        message: `user ${userId} wasn't found`,
-      });
+      return res.status(404).send({ err: `user ${userId} wasn't found` });
     }
+    deletedUser.remove();
+    res.json({ deletedUser });
 
     res.json({
       user: `user ${userId} was deleted`,
-      users: filteredUsers,
     });
   } catch (err) {
     res.status(500).send();
@@ -90,16 +95,26 @@ router.delete("/:userId", async (req, res) => {
  * @route POST api/users/:userId
  * @description create new user
  */
-router.post("/", async (req, res) => {
-  const newUser = {
-    ...req.body,
-    id: req.body.firstName.toLowerCase(),
-  };
-  console.log(newUser);
+router.post("/", upload.single("avatar"), async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
+  let avatar;
+  if (req.file) {
+    const file = req.file;
+    console.log(file);
+    avatar = await resizeImage(file.buffer, 100, 100);
+  }
   try {
-    User.push(newUser);
-    //error handling with db: catch(err){res.status(400).json({ err })};
-    return res.status(201).json({ user: newUser });
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+      avatar,
+    });
+    newUser
+      .save()
+      .then((user) => res.status(201).json({ user }))
+      .catch((err) => res.status(404).json({ err }));
   } catch (err) {
     res.status(500).send();
   }

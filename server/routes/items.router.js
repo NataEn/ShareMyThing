@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     });
     console.log("items", items);
     if (!items) {
-      return res.status(404).json({ message: `no items found ` });
+      return res.status(404).json({ err: `no items found ` });
     }
     res.json({ items });
   } catch (err) {
@@ -30,15 +30,11 @@ router.get("/item/:itemId", async (req, res) => {
   const itemId = req.params.itemId;
   try {
     const item = await Item.findOne({ _id: itemId });
-    console.log("found item", item);
     if (!item) {
-      return res
-        .status(404)
-        .json({ message: `item of id:${itemId} wasn't found` });
+      return res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
     return res.json({ item });
   } catch (err) {
-    console.log(err);
     return res.status(500).send();
   }
 });
@@ -58,7 +54,7 @@ router.get("/:userId", async (req, res) => {
     // await req.user.populate("Items").execPopulate();
     // const items = req.user.items;
     if (!items) {
-      return res.status(404).json({ message: `no items found for ${userId}` });
+      return res.status(404).json({ err: `no items found for ${userId}` });
     }
     res.json({ items });
   } catch (err) {
@@ -76,7 +72,7 @@ router.get("/:userId/:itemId", async (req, res) => {
   try {
     const item = await Item.findOne({ _id: itemId, publishedBy: userId });
     if (!item) {
-      res.status(404).json({ message: `item of id:${itemId} wasn't found` });
+      res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
     return res.json({ item });
   } catch (err) {
@@ -88,7 +84,7 @@ router.get("/:userId/:itemId", async (req, res) => {
  * @route PATCH api/items/:userId/:itemId
  * @description update specific item published by the user
  */
-router.patch("/:userId/:itemId", async (req, res) => {
+router.patch("/:userId/:itemId", upload.array("images"), async (req, res) => {
   const userId = req.params.userId;
   const itemId = req.params.itemId;
   const updates = Object.keys(req.body);
@@ -96,11 +92,18 @@ router.patch("/:userId/:itemId", async (req, res) => {
   try {
     const item = await Item.findOne({ _id: itemId, publishedBy: userId });
     if (!item) {
-      return res
-        .status(404)
-        .json({ message: `item of id:${itemId} wasn't found` });
+      return res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
     updates.forEach((update) => (item[update] = req.body[update]));
+    const { name, category, description } = req.body;
+    let images;
+    if (req.files) {
+      const imagesPromises = req.files.map((file) =>
+        resizeImage(file.buffer, 100, 100)
+      );
+      images = await Promise.all(imagesPromises);
+    }
+    item.images = images;
     item.save();
     res.json({ item });
   } catch (err) {
@@ -144,7 +147,6 @@ router.post("/:userId", upload.array("images"), async (req, res) => {
       resizeImage(file.buffer, 100, 100)
     );
     images = await Promise.all(imagesPromises);
-    console.log("images", images);
   }
 
   if (!name || !category || !description) {
