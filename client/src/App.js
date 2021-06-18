@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { theme } from "./theme";
 import { useStyles } from "./AppStyles";
@@ -10,10 +10,21 @@ import ItemForm from "./components/AddItemForm/AddItemForm";
 import Copyright from "./components/Copyright/Copyright";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import items from "./items.json";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItem, getItems } from "./redux/actions/item.actions";
+// import items from "./items.json";
 
 function App() {
-  const [shareHubItems, setShareHubItems] = useState(items);
+  const itemsState = useSelector((state) => state.itemsReducer);
+  console.log("items", itemsState.items);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, []);
+
+  const [shareHubItems, setShareHubItems] = useState(itemsState.items);
   const [filteredItems, setFilteredItems] = useState(() => shareHubItems);
   const filterShareHubItems = (searchStr = null) => {
     if (!searchStr | (searchStr.length === 0)) {
@@ -50,7 +61,7 @@ function App() {
           <div className={classes.main}>
             <Switch>
               <Route exact path="/">
-                <Home items={filteredItems} />
+                {itemsState.items && <Home items={filteredItems} />}
               </Route>
               <Route exact path="/items/addItem">
                 <ItemForm />

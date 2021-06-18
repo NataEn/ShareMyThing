@@ -16,7 +16,7 @@ import { List, ListItem, Button, Typography } from "@material-ui/core";
 export default function ListItemShared({ id, item }) {
   const classes = useStyles();
   const location = useLocation();
-  const { description, lastUsed, inUseBy, imgURL, name } = item;
+  const { description, lastUsed, inUseBy, imgURL, name, images } = item;
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(true);
 
@@ -35,13 +35,20 @@ export default function ListItemShared({ id, item }) {
     console.log("clicked close modal");
     setOpen(false);
   };
-  console.log(item);
+
+  const encodeBase64Img = (buffer) => {
+    return `data:image/jpeg;base64,${Buffer.from(buffer).toString("base64")}`;
+  };
 
   return (
     <>
       <ListItem className={!show ? classes.listItemContainer : ""}>
         <div className={classes.container}>
-          <img src={imgURL} alt="item" className={classes.image} />
+          <img
+            src={imgURL ? imgURL : images[0]}
+            alt="item"
+            className={classes.image}
+          />
 
           <List className={classes.description}>
             <Typography variant={"subtitle1"}>{name}</Typography>
