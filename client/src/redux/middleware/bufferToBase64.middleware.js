@@ -3,10 +3,7 @@ import ActionTypes from "../actions/types";
 const bufferToBase64Middleware = (store) => (next) => (action) => {
   switch (action.type) {
     case ActionTypes.items.GET_ITEMS: {
-      console.log("before changing the images");
-      console.log("the items", action.payload);
       const items = action.payload;
-      console.log("before middleware fore each");
       const modifiedItems = items.map((item) => {
         const images = item.images.map(
           (buffer) =>
@@ -14,10 +11,22 @@ const bufferToBase64Middleware = (store) => (next) => (action) => {
         );
         return { ...item, images };
       });
-      debugger;
       store.dispatch({
         type: ActionTypes.items.ITEMS_MODIFIED,
         payload: modifiedItems,
+      });
+      break;
+    }
+    case ActionTypes.users.USER_LOADED: {
+      const user = action.payload;
+      const buffer = user.avatar;
+      const avatar = `data:image/jpeg;base64,${Buffer.from(buffer).toString(
+        "base64"
+      )}`;
+
+      store.dispatch({
+        type: ActionTypes.users.USER_AVATAR_MODIFIED,
+        payload: { ...user, avatar },
       });
       break;
     }
