@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { useStyles } from "./AddItemFormStyles";
 import TextField from "@material-ui/core/TextField";
@@ -22,21 +23,25 @@ const AddItemForm = () => {
     setValue(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("in submit");
-    const data = new FormData();
+    const formData = new FormData();
     //TODO: validate the inputs
-    data.append("title", event.target.title.value);
-    data.append("owner", event.target.owner.value);
-    data.append("description", event.target.description.value);
-    data.append("condition", event.target.condition.value);
-    data.append(
-      "images",
-      imgs.map((img) => img.file)
-    );
-    alert(`sent item data: ${JSON.stringify(Object.fromEntries(data))}`);
-    //TODO: send formData object to the server
+    formData.append("name", event.target.title.value);
+    formData.append("category", event.target.category.value);
+    formData.append("owner", event.target.owner.value);
+    formData.append("description", event.target.description.value);
+    formData.append("condition", event.target.condition.value);
+    imgs.forEach((img) => formData.append("images", img.file));
+
+    const res = await axios.post("/api/items/Admin", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    alert(`sent item data: ${JSON.stringify(Object.fromEntries(formData))}`);
+    alert(JSON.stringify(res));
   };
   return (
     <Container className={classes.container}>
@@ -55,6 +60,12 @@ const AddItemForm = () => {
           label="Item title"
           className={classes.formInput}
           name="title"
+        />
+        <TextField
+          id="category"
+          label="Item category"
+          className={classes.formInput}
+          name="category"
         />
         <TextField
           id="my name"
