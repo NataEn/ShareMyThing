@@ -13,7 +13,7 @@ import Copyright from "./components/Copyright/Copyright";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 function App() {
-  const [status, data] = useFetch("api/items");
+  const [status, data] = useFetch("/api/items");
   const [filteredItems, setFilteredItems] = useState();
 
   useEffect(() => {
