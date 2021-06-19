@@ -10,6 +10,7 @@ import { useStyles } from "./HomeStyles";
  * @returns JSX element
  */
 export default function Home({ items }) {
+  console.log("in home", items);
   const classes = useStyles();
 
   return (
@@ -19,7 +20,7 @@ export default function Home({ items }) {
       </Typography>
       <List className={classes.container}>
         {items.map((item, index) => (
-          <ListItem item={item} id={index} key={item.name} />
+          <ListItem item={item} id={index} key={`${item.name}-${index}`} />
         ))}
       </List>
     </Container>

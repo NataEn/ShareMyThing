@@ -6,6 +6,7 @@ import { Divider } from "@material-ui/core";
 import { useStyles } from "./ListItemStyles";
 import RequestModal from "../RequestModal/RequestModal";
 import { List, ListItem, Button, Typography } from "@material-ui/core";
+import { bufferToBase64 } from "../../util";
 
 /**
  * @name ListItemShared
@@ -41,7 +42,11 @@ export default function ListItemShared({ id, item }) {
     <>
       <ListItem className={!show ? classes.listItemContainer : ""}>
         <div className={classes.container}>
-          <img src={imgURL} alt="item" className={classes.image} />
+          <img
+            src={imgURL ? imgURL : bufferToBase64(item.images[0])}
+            alt="item"
+            className={classes.image}
+          />
 
           <List className={classes.description}>
             <Typography variant={"subtitle1"}>{name}</Typography>

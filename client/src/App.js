@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import useFetch from "./hooks/useFetch";
 import { theme } from "./theme";
 import { useStyles } from "./AppStyles";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -10,19 +12,29 @@ import ItemForm from "./components/AddItemForm/AddItemForm";
 import Copyright from "./components/Copyright/Copyright";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import items from "./items.json";
-
 function App() {
-  const [shareHubItems, setShareHubItems] = useState(items);
-  const [filteredItems, setFilteredItems] = useState(() => shareHubItems);
+  const [status, data] = useFetch("api/items");
+  const [filteredItems, setFilteredItems] = useState();
+
+  useEffect(() => {
+    if (status === "loaded") {
+      setFilteredItems(data.items);
+    }
+  }, [status, data]);
+
   const filterShareHubItems = (searchStr = null) => {
+    const items = data.items;
     if (!searchStr | (searchStr.length === 0)) {
-      setFilteredItems(shareHubItems);
+      setFilteredItems(items);
     } else {
       const filtered = filteredItems.filter((item) => {
-        const matchFromName = item.name.match(searchStr);
-        const matchFromDescription = item.description.match(searchStr);
-        const matchFromInUseBy = item.inUseBy.match(searchStr);
+        const matchFromName = item.name ? item.name.match(searchStr) : null;
+        const matchFromDescription = item.description
+          ? item.description.match(searchStr)
+          : null;
+        const matchFromInUseBy = item.inUseBy
+          ? item.inUseBy.match(searchStr)
+          : null;
         const matchFromPublishedBy = item.publishedBy.match(searchStr);
 
         if (
@@ -50,7 +62,7 @@ function App() {
           <div className={classes.main}>
             <Switch>
               <Route exact path="/">
-                <Home items={filteredItems} />
+                {filteredItems && <Home items={filteredItems} />}
               </Route>
               <Route exact path="/items/addItem">
                 <ItemForm />
