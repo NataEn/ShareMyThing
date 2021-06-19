@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { theme } from "./theme";
 import { useStyles } from "./AppStyles";
@@ -10,45 +10,40 @@ import ItemForm from "./components/AddItemForm/AddItemForm";
 import Copyright from "./components/Copyright/Copyright";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, getItems } from "./redux/actions/item.actions";
+import { useDispatch } from "react-redux";
+import { getItems, getFilterStr } from "./redux/actions/item.actions";
 // import items from "./items.json";
 
 function App() {
-  const itemsState = useSelector((state) => state.itemsReducer);
-  console.log("items", itemsState.items);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getItems());
-  }, []);
+  }, [dispatch]);
 
-  const [shareHubItems, setShareHubItems] = useState(itemsState.items);
-  const [filteredItems, setFilteredItems] = useState(() => shareHubItems);
-  const filterShareHubItems = (searchStr = null) => {
-    if (!searchStr | (searchStr.length === 0)) {
-      setFilteredItems(shareHubItems);
-    } else {
-      const filtered = filteredItems.filter((item) => {
-        const matchFromName = item.name.match(searchStr);
-        const matchFromDescription = item.description.match(searchStr);
-        const matchFromInUseBy = item.inUseBy.match(searchStr);
-        const matchFromPublishedBy = item.publishedBy.match(searchStr);
+  // const filterShareHubItems = (searchStr = null) => {
+  //   if (!searchStr | (searchStr.length === 0)) {
+  //     setFilteredItems(shareHubItems);
+  //   } else {
+  //     const filtered = filteredItems.filter((item) => {
+  //       const matchFromName = item.name.match(searchStr);
+  //       const matchFromDescription = item.description.match(searchStr);
+  //       const matchFromInUseBy = item.inUseBy.match(searchStr);
+  //       const matchFromPublishedBy = item.publishedBy.match(searchStr);
 
-        if (
-          matchFromName ||
-          matchFromDescription ||
-          matchFromInUseBy ||
-          matchFromPublishedBy
-        ) {
-          return item;
-        }
-      });
+  //       if (
+  //         matchFromName ||
+  //         matchFromDescription ||
+  //         matchFromInUseBy ||
+  //         matchFromPublishedBy
+  //       ) {
+  //         return item;
+  //       }
+  //     });
 
-      setFilteredItems(filtered);
-    }
-  };
+  //     setFilteredItems(filtered);
+  //   }
+  // };
 
   const classes = useStyles();
   return (
@@ -57,11 +52,11 @@ function App() {
         <CssBaseline />
 
         <Router>
-          <Navbar filterItems={filterShareHubItems} />
+          <Navbar />
           <div className={classes.main}>
             <Switch>
               <Route exact path="/">
-                {itemsState.items && <Home items={filteredItems} />}
+                {<Home />}
               </Route>
               <Route exact path="/items/addItem">
                 <ItemForm />

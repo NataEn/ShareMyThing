@@ -9,9 +9,9 @@ import { useStyles } from "./HomeStyles";
  * @description home page
  * @returns JSX element
  */
-export default function Home({}) {
-  const classes = useStyles();
+export default function Home() {
   const itemsState = useSelector((state) => state.itemsReducer);
+  const classes = useStyles();
 
   return (
     <Container>
@@ -19,9 +19,9 @@ export default function Home({}) {
         Available Now
       </Typography>
       <List className={classes.container}>
-        {itemsState &&
-          itemsState.items.map((item, index) => (
-            <ListItem item={item} id={index} key={item.name} />
+        {itemsState.filteredItems.length &&
+          itemsState.filteredItems.map((item, index) => (
+            <ListItem item={item} id={index} key={`${item.name}-${index}`} />
           ))}
       </List>
     </Container>

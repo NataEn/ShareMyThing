@@ -36,13 +36,12 @@ export default function ListItemShared({ id, item }) {
     setOpen(false);
   };
 
-  const encodeBase64Img = (buffer) => {
-    return `data:image/jpeg;base64,${Buffer.from(buffer).toString("base64")}`;
-  };
-
   return (
     <>
-      <ListItem className={!show ? classes.listItemContainer : ""}>
+      <ListItem
+        className={!show ? classes.listItemContainer : ""}
+        key={`shared-${id} item`}
+      >
         <div className={classes.container}>
           <img
             src={imgURL ? imgURL : images[0]}
@@ -103,7 +102,7 @@ export default function ListItemShared({ id, item }) {
           </Link>
         )}
       </ListItem>
-      <Divider />
+      <Divider key={id} />
     </>
   );
 }

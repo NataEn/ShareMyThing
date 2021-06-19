@@ -22,9 +22,7 @@ import Button from "@material-ui/core/Button";
  */
 export default function RequestModal({ open, handleClose, from, to }) {
   const classes = useStyles();
-  const location = useLocation();
-  console.log(location);
-
+  // const location = useLocation();
   return (
     <Dialog
       open={open}

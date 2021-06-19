@@ -7,10 +7,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 const composeEnhancers = composeWithDevTools({});
 
 const initialState = {};
-const middleware = [thunk];
+const middleware = [thunk, bufferToBase64Middleware];
 const store = createStore(
   rootReducer,
   initialState,
-  composeEnhancers(applyMiddleware(...middleware, bufferToBase64Middleware))
+  composeEnhancers(applyMiddleware(...middleware))
 );
 export default store;

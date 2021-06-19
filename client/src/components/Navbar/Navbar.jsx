@@ -17,7 +17,7 @@ import SearchInput from "../SearchInput/SearchInput";
  */
 
 //TODO: implement styling as in https://css-tricks.com/styling-based-on-scroll-position/
-const Navbar = ({ filterItems }) => {
+const Navbar = () => {
   const classes = useStyles();
 
   return (
@@ -29,7 +29,7 @@ const Navbar = ({ filterItems }) => {
               ShareHub
             </Typography>{" "}
           </a>
-          <SearchInput filterItems={filterItems} />
+          <SearchInput />
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

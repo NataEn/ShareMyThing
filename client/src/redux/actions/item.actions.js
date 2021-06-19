@@ -8,11 +8,20 @@ export const setItemsLoading = () => {
     type: items.ITEMS_LOADING,
   };
 };
-export const itemsModified = () => () => {
+export const itemsModified = () => {
   return {
     type: ActionTypes.items.ITEMS_MODIFIED,
   };
 };
+
+export const filterItems = (searchStr) => {
+  debugger;
+  return {
+    type: ActionTypes.items.FILTER_ITEMS,
+    payload: searchStr,
+  };
+};
+
 export const getItems = () => async (dispatch, getState) => {
   dispatch(setItemsLoading());
   const res = await axios.get("api/items").catch((err) => console.error(err));
