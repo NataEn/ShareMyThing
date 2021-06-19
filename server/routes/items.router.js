@@ -167,7 +167,10 @@ router.delete("/:userId/:itemId", async (req, res) => {
  * @description create new item  by the user
  */
 router.post("/:userId", upload.array("images"), async (req, res) => {
-  const userId = req.params.userId;
+  const userId =
+    req.params.userId === "Admin"
+      ? "60cdad51f937415fe434219e"
+      : req.params.userId;
 
   const { name, category, description } = req.body;
   let images;
