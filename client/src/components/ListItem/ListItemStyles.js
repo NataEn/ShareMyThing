@@ -44,6 +44,13 @@ export const useStyles = makeStyles((theme) => ({
   description: {
     padding: "0",
   },
+  descriptionExpanded: {
+    height: "100%",
+    margin: "0 1rem",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
   btn: {
     marginLeft: theme.spacing(0.5),
   },

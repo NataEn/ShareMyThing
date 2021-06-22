@@ -58,7 +58,9 @@ export default function ListItemShared({ id, item }) {
             />
           )}
 
-          <List className={classes.description}>
+          <List
+            className={show ? classes.descriptionExpanded : classes.description}
+          >
             <Typography variant={"subtitle1"}>{name}</Typography>
             <ListItem className={classes.description} key={`${id}-description`}>
               description:{description}

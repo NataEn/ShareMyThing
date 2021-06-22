@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     transform: " translate(-50%,-50%)",
     transition: "opacity .15s cubic-bezier(.4, 0, 1, 1)",
     border: "none",
-    backgroundColor: "none",
+    backgroundColor: "rgb(0 0 0 / 30%)",
 
     "&:focus": {
       outline: 0,

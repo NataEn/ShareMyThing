@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   main: {
     position: "relative",
-    top: "50px",
+    top: "5rem",
     width: "100%",
     height: "max-content",
   },
