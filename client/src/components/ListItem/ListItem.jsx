@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useLocation, Link } from "react-router-dom";
+
 import { Divider } from "@material-ui/core";
 import { useStyles } from "./ListItemStyles";
+
 import RequestModal from "../RequestModal/RequestModal";
+import ImageCarousel from "../ImageCarousel/ImageCarousel";
 import { List, ListItem, Button, Typography } from "@material-ui/core";
 import { bufferToBase64 } from "../../util";
 
@@ -20,6 +23,7 @@ export default function ListItemShared({ id, item }) {
   const { description, lastUsed, inUseBy, imgURL, name } = item;
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(true);
+  const imgsBase64 = item.images.map((img) => bufferToBase64(img));
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -43,7 +47,7 @@ export default function ListItemShared({ id, item }) {
       <ListItem className={!show ? classes.listItemContainer : ""}>
         <div className={classes.container}>
           <img
-            src={imgURL ? imgURL : bufferToBase64(item.images[0])}
+            src={imgURL ? imgURL : imgsBase64[0]}
             alt="item"
             className={classes.image}
           />
@@ -73,7 +77,6 @@ export default function ListItemShared({ id, item }) {
                   size={"small"}
                   onClick={(e) => {
                     handleOpen(e);
-                    console.log("clicked button");
                   }}
                 >
                   Request
@@ -93,7 +96,7 @@ export default function ListItemShared({ id, item }) {
             className={classes.link}
             to={{
               pathname: `/items/${id}`,
-              state: item,
+              state: { item, imgsBase64 },
             }}
             key={id}
           >
@@ -101,6 +104,7 @@ export default function ListItemShared({ id, item }) {
           </Link>
         )}
       </ListItem>
+
       <Divider />
     </>
   );

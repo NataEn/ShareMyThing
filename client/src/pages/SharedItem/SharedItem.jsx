@@ -5,13 +5,14 @@ import { Container, Typography } from "@material-ui/core";
 import { useStyles } from "./SharedItemStyles";
 import { useLocation, useParams } from "react-router-dom";
 import ListItemComponent from "../../components/ListItem/ListItem";
+import ImageCarousel from "../../components/Carousel/Carousel";
 /**
  * @description page of each shared item
  * @returns JSX element
  */
 export default function SharedItem() {
   const { id } = useParams();
-  const item = useLocation().state;
+  const { item, imgsBase64 } = useLocation().state;
   const location = useLocation();
   const classes = useStyles();
   debugger;
@@ -24,6 +25,7 @@ export default function SharedItem() {
           </Typography>
           <Container className={classes.data}>
             <ListItemComponent id={id} item={item} />
+            <ImageCarousel slides={imgsBase64} name={item.name} />
           </Container>
         </>
       )}
