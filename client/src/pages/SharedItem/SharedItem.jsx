@@ -25,7 +25,6 @@ export default function SharedItem() {
           </Typography>
           <Container className={classes.data}>
             <ListItemComponent id={id} item={item} />
-            <ImageCarousel slides={imgsBase64} name={item.name} />
           </Container>
         </>
       )}

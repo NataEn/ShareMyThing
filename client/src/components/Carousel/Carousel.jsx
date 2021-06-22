@@ -5,7 +5,7 @@ import CarouselIndicator from "../CarouselIndicator/CarouselIndicator";
 import { useStyles } from "./CarouselStyles";
 import clsx from "clsx";
 
-const Carousel = ({ slides, name }) => {
+const Carousel = ({ slides, name, styling }) => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -44,11 +44,11 @@ const Carousel = ({ slides, name }) => {
   };
 
   return (
-    <div className={classes.carouselContainer}>
+    <div className={clsx(classes.carouselContainer, styling)}>
       <div className={classes.carousel}>
         <CarouselArrow onClick={(e) => goToPrevSlide(e)} direction={"left"} />
 
-        <ul className={classes.carousel__slides}>
+        <ul className={classes.ul}>
           {slides &&
             slides.map((slide, index) => {
               console.log("slide", slide);
@@ -75,6 +75,7 @@ const Carousel = ({ slides, name }) => {
                 activeIndex={activeIndex}
                 isActive={activeIndex === index}
                 onClick={(e) => goToSlide(index)}
+                slide={slide}
               />
             ))}
         </ul>

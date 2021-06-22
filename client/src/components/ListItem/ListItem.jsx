@@ -7,7 +7,7 @@ import { Divider } from "@material-ui/core";
 import { useStyles } from "./ListItemStyles";
 
 import RequestModal from "../RequestModal/RequestModal";
-import ImageCarousel from "../ImageCarousel/ImageCarousel";
+import Carousel from "../Carousel/Carousel";
 import { List, ListItem, Button, Typography } from "@material-ui/core";
 import { bufferToBase64 } from "../../util";
 
@@ -46,11 +46,17 @@ export default function ListItemShared({ id, item }) {
     <>
       <ListItem className={!show ? classes.listItemContainer : ""}>
         <div className={classes.container}>
-          <img
-            src={imgURL ? imgURL : imgsBase64[0]}
-            alt="item"
-            className={classes.image}
-          />
+          {show ? (
+            <div className={classes.carousel}>
+              <Carousel slides={imgsBase64} name={item.name} />
+            </div>
+          ) : (
+            <img
+              src={imgURL ? imgURL : imgsBase64[0]}
+              alt="item"
+              className={classes.image}
+            />
+          )}
 
           <List className={classes.description}>
             <Typography variant={"subtitle1"}>{name}</Typography>

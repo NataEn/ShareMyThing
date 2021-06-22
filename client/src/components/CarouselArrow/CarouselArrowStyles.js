@@ -5,26 +5,30 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "50%",
     display: "block",
-    color: "#111",
+    color: theme.palette.primary1Color,
     cursor: "pointer",
     opacity: ".75",
-    transform: " translateY(-50%)",
+    transform: " translate(-50%,-50%)",
     transition: "opacity .15s cubic-bezier(.4, 0, 1, 1)",
+    border: "none",
+    backgroundColor: "none",
 
     "&:focus": {
       outline: 0,
     },
 
     "&:hover": {
-      opacity: ".5",
+      opacity: "1",
+      backgroundColor: theme.palette.primary1Color,
+      color: "white",
     },
   },
 
   left: {
-    left: "32px",
+    left: "2rem",
   },
 
   right: {
-    right: "32px",
+    right: "-1rem",
   },
 }));

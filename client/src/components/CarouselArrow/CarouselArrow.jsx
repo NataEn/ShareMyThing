@@ -6,14 +6,18 @@ import clsx from "clsx";
 const CarouselLeftArrow = ({ direction, onClick }) => {
   const classes = useStyles();
   return (
-    <button
+    <IconButton
+      aria-label="arrow"
+      component="span"
       className={clsx(classes.carousel__arrow, classes[direction])}
       onClick={onClick}
     >
-      <IconButton color="primary" aria-label="upload picture" component="span">
-        {direction === "left" ? <ArrowBack /> : <ArrowForward />}
-      </IconButton>
-    </button>
+      {direction === "left" ? (
+        <ArrowBack size="small" />
+      ) : (
+        <ArrowForward size="small" />
+      )}
+    </IconButton>
   );
 };
 

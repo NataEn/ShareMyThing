@@ -35,6 +35,12 @@ export const useStyles = makeStyles((theme) => ({
     width: "13%",
     minWidth: "100px",
   },
+  carousel: {
+    marginRight: theme.spacing(2),
+    height: "100%",
+    width: "30%",
+    minWidth: "200px",
+  },
   description: {
     padding: "0",
   },

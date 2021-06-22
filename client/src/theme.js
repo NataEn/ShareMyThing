@@ -11,4 +11,7 @@ export const theme = createMuiTheme({
       textTransform: "none",
     },
   },
+  border: {
+    radius: "0.25rem",
+  },
 });

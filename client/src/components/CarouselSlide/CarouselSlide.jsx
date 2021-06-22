@@ -15,9 +15,8 @@ const CarouselSlide = ({ index, activeIndex, slide, name }) => {
       }
     >
       <div className={classes.carouselSlide__content}>
-        <h2>In slide h2</h2>
         <img src={slide} alt={name} />
-        <Button className="Enlarge">Enlarge</Button>
+        <span className="Enlarge">Hover to Enlarge</span>
       </div>
     </li>
   );
