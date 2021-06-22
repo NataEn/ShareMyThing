@@ -11,7 +11,8 @@ export const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-around",
     padding: theme.spacing(3),
   },

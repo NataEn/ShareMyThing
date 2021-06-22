@@ -49,9 +49,8 @@ const Carousel = ({ slides, name, styling }) => {
         <CarouselArrow onClick={(e) => goToPrevSlide(e)} direction={"left"} />
 
         <ul className={classes.ul}>
-          {slides &&
+          {slides.length > 0 ? (
             slides.map((slide, index) => {
-              console.log("slide", slide);
               return (
                 <CarouselSlide
                   key={index}
@@ -61,7 +60,16 @@ const Carousel = ({ slides, name, styling }) => {
                   name={name}
                 />
               );
-            })}
+            })
+          ) : (
+            <CarouselSlide
+              key={0}
+              index={0}
+              activeIndex={activeIndex}
+              slide={null}
+              name={name}
+            />
+          )}
         </ul>
 
         <CarouselArrow onClick={(e) => goToNextSlide(e)} direction={"right"} />

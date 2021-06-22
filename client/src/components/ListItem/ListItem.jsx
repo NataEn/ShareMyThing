@@ -52,7 +52,11 @@ export default function ListItemShared({ id, item }) {
             </div>
           ) : (
             <img
-              src={imgURL ? imgURL : imgsBase64[0]}
+              src={
+                imgURL
+                  ? imgURL
+                  : imgsBase64[0] || process.env.PUBLIC_URL + "/noImg.jpg"
+              }
               alt="item"
               className={classes.image}
             />

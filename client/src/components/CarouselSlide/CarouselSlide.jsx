@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Button } from "@material-ui/core";
+
 import { useStyles } from "./CarouselSlideStyles";
 import clsx from "clsx";
 
@@ -15,8 +15,11 @@ const CarouselSlide = ({ index, activeIndex, slide, name }) => {
       }
     >
       <div className={classes.carouselSlide__content}>
-        <img src={slide} alt={name} />
-        <span className="Enlarge">Hover to Enlarge</span>
+        <img
+          src={slide ? slide : process.env.PUBLIC_URL + "/noImg.jpg"}
+          alt={name}
+        />
+        {/* <span className="Enlarge">Hover to Enlarge</span> */}
       </div>
     </li>
   );
