@@ -42,4 +42,15 @@ const ItemSchema = new Schema(
 );
 const Item = mongoose.model("Item", ItemSchema);
 
+ItemSchema.statics.findUser = async (param) => {
+  return await Item.findOne({ ...param })
+    .populate("User")
+    .exec(function (err, user) {
+      if (err) {
+        throw err;
+      }
+      return user;
+    });
+};
+
 module.exports = Item;
