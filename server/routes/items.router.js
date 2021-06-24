@@ -29,8 +29,11 @@ router.get("/", async (req, res) => {
  */
 router.get("/item/:itemId", async (req, res) => {
   const itemId = req.params.itemId;
+  console.log("item id", itemId);
   try {
     const item = await Item.findOne({ _id: itemId });
+    const user = await item.findUser({ id: item.inUseBy });
+    console.log("in route", user);
     if (!item) {
       return res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
@@ -95,15 +98,32 @@ router.get("/:userId", async (req, res) => {
  * @description get specific item published by the user
  */
 router.get("/:userId/:itemId", async (req, res) => {
+  console.log("in get api/items/:userId/:itemId");
   const userId = req.params.userId;
   const itemId = req.params.itemId;
   try {
     const item = await Item.findOne({ _id: itemId, publishedBy: userId });
+
     if (!item) {
       res.status(404).json({ err: `item of id:${itemId} wasn't found` });
     }
-    return res.json({ item });
+    item
+      .populate("inUseBy", {
+        firstName: 1,
+        email: 1,
+      })
+      .execPopulate();
+    item
+      .populate("publishedBy", {
+        firstName: 1,
+        email: 1,
+      })
+      .execPopulate(function (err, item) {
+        console.log("err", err, "user", item.publishedBy);
+        return res.json({ item });
+      });
   } catch (err) {
+    console.log(err);
     return res.status(500).send();
   }
 });
