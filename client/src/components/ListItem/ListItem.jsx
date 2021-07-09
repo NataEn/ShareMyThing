@@ -24,6 +24,7 @@ export default function ListItemShared({ id, item }) {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(true);
   const imgsBase64 = item.images.map((img) => bufferToBase64(img));
+  console.log("item", item);
 
   useEffect(() => {
     if (location.pathname === "/") {
