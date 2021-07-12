@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Typography, Divider, List, Container } from "@material-ui/core";
 import ListItem from "../../components/ListItem/ListItem";
+import CardItem from "../../components/ListItemSec/ListItemSec";
 
 import { Link } from "react-router-dom";
 import { useStyles } from "./HomeStyles";
@@ -21,6 +22,9 @@ export default function Home({ items }) {
       <List className={classes.container}>
         {items.map((item, index) => (
           <ListItem item={item} id={index} key={`${item.name}-${index}`} />
+        ))}
+        {items.map((item, index) => (
+          <CardItem item={item} id={index} key={`${item.name}-${index}`} />
         ))}
       </List>
     </Container>
