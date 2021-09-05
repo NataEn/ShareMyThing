@@ -15,14 +15,14 @@ const Carousel = ({ slides, name, styling }) => {
     e.preventDefault();
 
     let index = activeIndex;
-
     let slidesLength = slides.length;
 
     if (index < 1) {
       index = slidesLength;
     }
-
-    --index;
+    if (slidesLength !== 0) {
+      --index;
+    }
 
     setActiveIndex(index);
   };
@@ -32,13 +32,13 @@ const Carousel = ({ slides, name, styling }) => {
 
     let index = activeIndex;
 
-    let slidesLength = slides.length - 1;
-
-    if (index === slidesLength) {
-      index = -1;
+    let slidesLength = slides.length ?? slides.length - 1;
+    debugger;
+    if (index === slidesLength - 1) {
+      index -= 1;
+    } else {
+      ++index;
     }
-
-    ++index;
 
     setActiveIndex(index);
   };
