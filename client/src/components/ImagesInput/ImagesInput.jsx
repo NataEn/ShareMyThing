@@ -17,7 +17,7 @@ const ImagesInput = ({ imgs, setImgs }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      {imgs.length > 1 &&
+      {imgs.length > 0 &&
         imgs.map((img, index) => {
           console.log("image", img, index);
           return (
